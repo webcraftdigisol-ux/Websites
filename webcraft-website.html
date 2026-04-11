@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebCraft Digital Solutions — AI-Powered Tech for Professionals</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --teal: #0B6259;
+    --teal-light: #E4F2F0;
+    --teal-mid: #1D9E8C;
+    --gold: #C8922A;
+    --gold-light: #FBF3E2;
+    --gold-mid: #E8B550;
+    --cream: #FAFAF7;
+    --white: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-mid: #3D3D3D;
+    --muted: #6B6B6B;
+    --border: #E2E2DA;
+    --section-pad: 6rem 2rem;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.15;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem; font-weight: 700;
+    color: var(--teal); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-logo-icon {
+    width: 36px; height: 36px; background: var(--teal);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-icon svg { width: 20px; height: 20px; fill: white; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500; color: var(--ink-mid);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal); color: white; padding: 0.55rem 1.4rem;
+    border-radius: 6px; font-size: 0.875rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #094f48; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 2.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 30%, rgba(11,98,89,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 10% 80%, rgba(200,146,42,0.06) 0%, transparent 60%);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(11,98,89,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11,98,89,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold-light); border: 1px solid var(--gold-mid);
+    color: var(--gold); padding: 0.3rem 1rem;
+    border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700; letter-spacing: -0.025em;
+    line-height: 1.05;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero h1 em { font-style: italic; color: var(--teal); }
+  .hero-subtitle {
+    font-size: 1.15rem; color: var(--muted); max-width: 600px;
+    margin: 1.5rem 0 2.5rem; font-weight: 400; line-height: 1.7;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: var(--teal); color: white;
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,98,89,0.25); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    border: 1.5px solid var(--border); display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+  .hero-clients {
+    margin-top: 4rem; animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .hero-clients p { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .client-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .client-tag {
+    background: white; border: 1px solid var(--border);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 500; color: var(--ink-mid);
+  }
+  .hero-visual {
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    width: 45%; max-width: 600px; pointer-events: none;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--teal); padding: 3rem 2.5rem;
+  }
+  .stats-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;
+  }
+  .stat-num span { color: var(--gold-mid); }
+  .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 0.3rem; font-weight: 500; letter-spacing: 0.04em; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: var(--section-pad); }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
+  }
+  .section-tag::before {
+    content: ''; width: 20px; height: 2px; background: var(--teal); display: block;
+  }
+  .section-heading {
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .section-sub { font-size: 1rem; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+  /* ── SERVICES ── */
+  #services { background: white; }
+  .services-header { margin-bottom: 3.5rem; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    background: var(--border); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden;
+  }
+  .service-card {
+    background: white; padding: 2rem 1.75rem;
+    transition: background 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .service-card:hover { background: var(--teal-light); }
+  .service-card:hover .service-icon { background: var(--teal); }
+  .service-card:hover .service-icon svg { fill: white; }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--teal-light); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem; transition: background 0.25s;
+  }
+  .service-icon svg { width: 22px; height: 22px; fill: var(--teal); transition: fill 0.25s; }
+  .service-card h3 {
+    font-size: 1.2rem; font-weight: 600; margin-bottom: 0.6rem; letter-spacing: -0.01em;
+  }
+  .service-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
+  .service-tag {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--teal); background: var(--teal-light); padding: 0.2rem 0.65rem; border-radius: 4px;
+  }
+  .service-card:hover .service-tag { background: white; }
+
+  /* ── INDUSTRIES ── */
+  #industries { background: var(--cream); }
+  .industries-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem;
+  }
+  .industry-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .industry-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .industry-icon {
+    width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+  }
+  .ind-blue { background: #EEF4FF; }
+  .ind-green { background: #EEFAF4; }
+  .ind-amber { background: #FFF8EC; }
+  .ind-coral { background: #FFF0EE; }
+  .industry-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .industry-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+  .industry-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pill {
+    font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.65rem;
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--ink-mid);
+  }
+
+  /* ── PROCESS ── */
+  #process { background: white; }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 3rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 28px; left: calc(12.5% + 24px); right: calc(12.5% + 24px);
+    height: 1px; background: repeating-linear-gradient(90deg, var(--teal) 0, var(--teal) 10px, transparent 10px, transparent 20px);
+    z-index: 0;
+  }
+  .step { text-align: center; padding: 0 1.25rem; position: relative; z-index: 1; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: white; border: 2px solid var(--teal); color: var(--teal);
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;
+  }
+  .step-active .step-num { background: var(--teal); color: white; }
+  .step h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── AI HIGHLIGHT ── */
+  #ai-highlight {
+    background: linear-gradient(135deg, #042C25 0%, #0B6259 60%, #0F7A6E 100%);
+    padding: var(--section-pad);
+  }
+  .ai-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .ai-text .section-tag { color: var(--gold-mid); }
+  .ai-text .section-tag::before { background: var(--gold-mid); }
+  .ai-text h2 { color: white; font-size: clamp(2rem,3.5vw,3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .ai-text p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; }
+  .ai-features { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ai-feat {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 1rem 1.25rem;
+  }
+  .ai-feat-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(200,146,42,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .ai-feat-icon svg { width: 16px; height: 16px; fill: var(--gold-mid); }
+  .ai-feat-text h4 { font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 0.2rem; }
+  .ai-feat-text p { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .ai-visual {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .chat-window { display: flex; flex-direction: column; gap: 0.75rem; }
+  .chat-bubble {
+    padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.82rem; line-height: 1.55; max-width: 88%;
+  }
+  .chat-bubble.bot { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border-bottom-left-radius: 4px; }
+  .chat-bubble.user { background: var(--gold); color: #1A0C00; border-bottom-right-radius: 4px; align-self: flex-end; }
+  .chat-label { font-size: 0.68rem; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+  .chat-label.right { text-align: right; }
+  .typing-indicator { display: flex; gap: 5px; padding: 0.75rem 1rem; background: rgba(255,255,255,0.1); border-radius: 12px; width: fit-content; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); animation: bounce 1.4s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--cream); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .testi-card {
+    background: white; border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: border-color 0.2s;
+  }
+  .testi-card:hover { border-color: var(--teal); }
+  .testi-stars { display: flex; gap: 3px; }
+  .star { width: 14px; height: 14px; fill: var(--gold); }
+  .testi-text { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.7; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+  }
+  .av1 { background: #EEF4FF; color: #185FA5; }
+  .av2 { background: #EEFAF4; color: #0F6E56; }
+  .av3 { background: #FFF8EC; color: #854F0B; }
+  .testi-name { font-size: 0.875rem; font-weight: 600; }
+  .testi-role { font-size: 0.75rem; color: var(--muted); }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--gold-light); border-top: 1px solid rgba(200,146,42,0.15);
+    border-bottom: 1px solid rgba(200,146,42,0.15);
+    text-align: center; padding: 5rem 2rem;
+  }
+  #cta h2 { font-size: clamp(2rem,4vw,3.5rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+  #cta p { font-size: 1rem; color: var(--muted); max-width: 500px; margin: 0 auto 2rem; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0B1F1D; color: rgba(255,255,255,0.65);
+    padding: 4rem 2.5rem 2rem;
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.7; margin: 0.75rem 0 1.5rem; color: rgba(255,255,255,0.5); }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700;
+    color: white; text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold-mid); }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col a { font-size: 0.85rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 2rem; font-size: 0.78rem; color: rgba(255,255,255,0.35);
+  }
+  .footer-badge {
+    background: rgba(200,146,42,0.12); border: 1px solid rgba(200,146,42,0.2);
+    color: var(--gold-mid); padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.72rem; font-weight: 600;
+  }
+
+  /* ── CONTACT STRIP ── */
+  .contact-strip {
+    background: white; border-top: 1px solid var(--border); padding: 1rem 2.5rem;
+    display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+  }
+  .contact-item { display: flex; align-items: center; gap: 8px; font-size: 0.83rem; color: var(--muted); }
+  .contact-item svg { width: 16px; height: 16px; fill: var(--teal); flex-shrink: 0; }
+  .contact-item a { color: var(--teal); text-decoration: none; font-weight: 500; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .industries-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .ai-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 2.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    WebCraft <span>Digital</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#ai-highlight">AI Solutions</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get a Free Consultation</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-badge">AI-Powered Tech Partner for Professionals</div>
+    <h1>
+      Smarter Digital Solutions<br>
+      for <em>Doctors, CAs,</em><br>
+      Lawyers & Businesses
+    </h1>
+    <p class="hero-subtitle">
+      We build intelligent websites, AI chatbots, workflow automations, and complete digital ecosystems — designed specifically for India's professional community.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Start Your Project
+      </a>
+      <a href="#services" class="btn-secondary">
+        Explore Services
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </a>
+    </div>
+    <div class="hero-clients">
+      <p>Trusted by professionals across</p>
+      <div class="client-tags">
+        <span class="client-tag">🏥 Medical Clinics</span>
+        <span class="client-tag">⚖️ Law Firms</span>
+        <span class="client-tag">📊 CA & Tax Firms</span>
+        <span class="client-tag">🏢 Growing Businesses</span>
+        <span class="client-tag">🎓 Educational Institutes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">150<span>+</span></div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98<span>%</span></div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40<span>+</span></div>
+      <div class="stat-label">AI Automations Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5<span>x</span></div>
+      <div class="stat-label">Avg Efficiency Boost</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-heading">End-to-End Digital & AI Services</h2>
+      <p class="section-sub">From your first website to a fully automated AI-driven workflow — we handle every layer of your digital presence.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l-1 1v2h12v-2l-1-1h3c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H4V5h16v11z"/></svg>
+        </div>
+        <h3>Website Design & Development</h3>
+        <p>Professional, mobile-first websites crafted to reflect your brand credibility. SEO-ready, fast-loading, and built for conversions.</p>
+        <span class="service-tag">Core Service</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        </div>
+        <h3>AI-Powered Chatbots</h3>
+        <p>24/7 intelligent chatbots that handle patient queries, appointment bookings, client intake forms, and FAQ resolution automatically.</p>
+        <span class="service-tag">AI-Powered</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        </div>
+        <h3>AI Agents & Virtual Assistants</h3>
+        <p>Autonomous AI agents that read emails, generate drafts, schedule meetings, follow up with leads, and manage your digital workflows.</p>
+        <span class="service-tag">AI-Powered</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </div>
+        <h3>Workflow Automation</h3>
+        <p>Eliminate repetitive manual work. Automate patient reminders, invoice generation, document filing, compliance reporting, and client communications.</p>
+        <span class="service-tag">Automation</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </div>
+        <h3>CRM & Practice Management</h3>
+        <p>Custom CRM solutions for clinics, law firms, and CA offices. Track clients, manage cases, follow up on dues, and monitor practice health in one dashboard.</p>
+        <span class="service-tag">Integration</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.71-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+        </div>
+        <h3>API & System Integration</h3>
+        <p>Seamlessly connect your website with payment gateways (Razorpay), WhatsApp Business API, Google Workspace, Zoho, Tally, and third-party tools.</p>
+        <span class="service-tag">Integration</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+        </div>
+        <h3>SEO & Digital Marketing</h3>
+        <p>Local SEO, Google My Business optimisation, content strategy, and paid campaigns. Get found by patients and clients in your city first.</p>
+        <span class="service-tag">Marketing</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+        </div>
+        <h3>Mobile App Development</h3>
+        <p>Lightweight Progressive Web Apps (PWAs) and native apps for appointment booking, client portals, document sharing, and business dashboards.</p>
+        <span class="service-tag">Development</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93C9.33 17.79 7 14.5 7 11V7.18L12 5z"/></svg>
+        </div>
+        <h3>Tech Support & Maintenance</h3>
+        <p>Ongoing technical support, security monitoring, performance audits, backup management, and rapid issue resolution for all your digital assets.</p>
+        <span class="service-tag">Support</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── INDUSTRIES ── -->
+<section id="industries">
+  <div class="section-inner">
+    <div class="section-tag">Who We Serve</div>
+    <h2 class="section-heading">Built for India's Professionals</h2>
+    <p class="section-sub">We understand the unique digital needs of regulated, trust-driven professions. Every solution is tailored — not templated.</p>
+    <div class="industries-grid">
+
+      <div class="industry-card">
+        <div class="industry-icon ind-blue">🏥</div>
+        <div>
+          <h3>Doctors & Clinics</h3>
+          <p>Online OPD booking, patient intake forms, appointment reminder bots, medical website with Google Reviews integration, WhatsApp consultation scheduling, and HIPAA-aligned data handling.</p>
+          <div class="industry-pills">
+            <span class="pill">Appointment Booking</span>
+            <span class="pill">Patient Portal</span>
+            <span class="pill">WhatsApp Bot</span>
+            <span class="pill">Review Management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="industry-card">
+        <div class="industry-icon ind-amber">📊</div>
+        <div>
+          <h3>CA & Tax Firms</h3>
+          <p>Document collection portals, ITR season automation, client reminder workflows, Tally integration, invoice generation bots, and compliance deadline tracking dashboards.</p>
+          <div class="industry-pills">
+            <span class="pill">Document Portal</span>
+            <span class="pill">Tally Integration</span>
+            <span class="pill">Deadline Tracker</span>
+            <span class="pill">Client CRM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="industry-card">
+        <div class="industry-icon ind-coral">⚖️</div>
+        <div>
+          <h3>Law Firms & Advocates</h3>
+          <p>Case management portals, client intake chatbots, legal consultation booking, document repository with e-sign, hearing date trackers, and retainer payment workflows.</p>
+          <div class="industry-pills">
+            <span class="pill">Case Management</span>
+            <span class="pill">Consultation Bot</span>
+            <span class="pill">E-Sign Docs</span>
+            <span class="pill">Retainer Payments</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="industry-card">
+        <div class="industry-icon ind-green">🏢</div>
+        <div>
+          <h3>Growing Businesses</h3>
+          <p>E-commerce stores, lead generation websites, sales funnel automation, WhatsApp business integration, loyalty programs, employee portals, and custom ERP dashboards.</p>
+          <div class="industry-pills">
+            <span class="pill">E-Commerce</span>
+            <span class="pill">Lead Automation</span>
+            <span class="pill">WhatsApp CRM</span>
+            <span class="pill">Custom ERP</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── AI HIGHLIGHT ── -->
+<section id="ai-highlight">
+  <div class="ai-inner">
+    <div class="ai-text">
+      <div class="section-tag">AI at the Core</div>
+      <h2>Your Practice, Running on AI</h2>
+      <p>We don't just build websites — we build intelligent systems that work for you around the clock. From AI receptionist bots to document intelligence, our solutions reduce manual effort by up to 80%.</p>
+      <div class="ai-features">
+        <div class="ai-feat">
+          <div class="ai-feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <div class="ai-feat-text">
+            <h4>AI Receptionist Chatbot</h4>
+            <p>Handles queries, books appointments, and collects info 24/7 without human intervention.</p>
+          </div>
+        </div>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          </div>
+          <div class="ai-feat-text">
+            <h4>Document Intelligence</h4>
+            <p>AI reads, extracts, and organises data from forms, invoices, and case files automatically.</p>
+          </div>
+        </div>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          </div>
+          <div class="ai-feat-text">
+            <h4>Automated Reminders & Follow-ups</h4>
+            <p>WhatsApp and SMS workflows for appointments, dues, renewals, and check-ins.</p>
+          </div>
+        </div>
+        <div class="ai-feat">
+          <div class="ai-feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+          </div>
+          <div class="ai-feat-text">
+            <h4>Smart Analytics Dashboard</h4>
+            <p>Real-time insights on client activity, revenue trends, and operational bottlenecks.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-visual">
+      <div style="font-size:0.7rem; color:rgba(255,255,255,0.35); margin-bottom:1rem; letter-spacing:0.06em; text-transform:uppercase;">AI Chatbot — Live Preview</div>
+      <div class="chat-window">
+        <div>
+          <div class="chat-label">WebCraft AI Bot</div>
+          <div class="chat-bubble bot">👋 Welcome to Dr. Sharma's Clinic! How can I assist you today?</div>
+        </div>
+        <div>
+          <div class="chat-label right">Patient</div>
+          <div class="chat-bubble user">I need an appointment for tomorrow</div>
+        </div>
+        <div>
+          <div class="chat-label">AI Bot</div>
+          <div class="chat-bubble bot">Sure! Dr. Sharma has slots available at 10:00 AM and 4:30 PM tomorrow. Which time works for you?</div>
+        </div>
+        <div>
+          <div class="chat-label right">Patient</div>
+          <div class="chat-bubble user">4:30 PM please</div>
+        </div>
+        <div>
+          <div class="chat-label">AI Bot</div>
+          <div class="typing-indicator">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.72rem; color:rgba(255,255,255,0.3); display:flex; align-items:center; gap:6px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:#2ECC71;"></div>
+        Booking confirmation being sent to patient's WhatsApp...
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom:0;">
+      <div class="section-tag" style="justify-content:center;">How We Work</div>
+      <h2 class="section-heading">From Idea to Live in 4 Steps</h2>
+      <p class="section-sub" style="margin:0 auto;">A streamlined process built for busy professionals — minimal effort from your side, maximum results from ours.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Discovery Call</h4>
+        <p>We understand your practice, goals, existing tools, and what problems you want solved — in a free 30-minute consultation.</p>
+      </div>
+      <div class="step step-active">
+        <div class="step-num">02</div>
+        <h4>Strategy & Proposal</h4>
+        <p>We map out the right tech stack, AI tools, and design approach. You get a clear scope, timeline, and fixed pricing.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Build & Integrate</h4>
+        <p>Our team designs, develops, and integrates everything. You see live previews and provide feedback at each milestone.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Launch & Support</h4>
+        <p>We go live, train your team, and provide ongoing support. Your digital system improves continuously over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-heading">Trusted by Professionals Across India</h2>
+    <p class="section-sub">Real results from doctors, lawyers, and CA firms who transformed their practices with WebCraft.</p>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <p class="testi-text">"WebCraft built us an AI appointment bot that handles 60+ queries a day without any staff involvement. Our front desk team can now focus entirely on patients in the clinic."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av1">DS</div>
+          <div>
+            <div class="testi-name">Dr. Deepa Sharma</div>
+            <div class="testi-role">Gynaecologist, Pune</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <p class="testi-text">"During ITR season, the document collection automation saved us over 40 hours of back-and-forth with clients. The Tally integration alone paid for the entire project in the first month."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av2">RJ</div>
+          <div>
+            <div class="testi-name">CA Rajesh Joshi</div>
+            <div class="testi-role">Chartered Accountant, Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg class="star" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <p class="testi-text">"Our new website with integrated client portal and consultation booking system has dramatically improved how new clients perceive our firm before they even walk in."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av3">AP</div>
+          <div>
+            <div class="testi-name">Adv. Anita Patil</div>
+            <div class="testi-role">Senior Advocate, Nagpur</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+  <div class="section-inner">
+    <div class="section-tag" style="justify-content:center;">Let's Build Together</div>
+    <h2>Ready to Upgrade Your Digital Presence?</h2>
+    <p>Book a free 30-minute consultation. No jargon, no pressure — just a clear roadmap for your digital transformation.</p>
+    <div class="cta-actions">
+      <a href="mailto:webcraftdigisol@gmail.com" class="btn-primary">
+        <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        webcraftdigisol@gmail.com
+      </a>
+      <a href="https://wa.me/918983990001" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+        WhatsApp: +91 89839 90001
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#">WebCraft <span>Digital</span></a>
+        <p>AI-powered tech solutions for India's professional community. We build intelligent digital systems that work as hard as you do.</p>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem;">
+          <a href="https://wa.me/918983990001" target="_blank" style="font-size:0.82rem;color:rgba(255,255,255,0.65);text-decoration:none;display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+            +91 89839 90001
+          </a>
+          <a href="mailto:webcraftdigisol@gmail.com" style="font-size:0.82rem;color:rgba(255,255,255,0.65);text-decoration:none;display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            webcraftdigisol@gmail.com
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">AI Chatbots</a></li>
+          <li><a href="#">AI Agents</a></li>
+          <li><a href="#">Workflow Automation</a></li>
+          <li><a href="#">CRM Solutions</a></li>
+          <li><a href="#">Mobile Apps</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Industries</h4>
+        <ul>
+          <li><a href="#">Doctors & Clinics</a></li>
+          <li><a href="#">CA Firms</a></li>
+          <li><a href="#">Law Firms</a></li>
+          <li><a href="#">Growing Businesses</a></li>
+          <li><a href="#">Educational Institutes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 WebCraft Digital Solutions. All rights reserved. Made with ♥ in Pune.</span>
+      <span class="footer-badge">GST Registered Business</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT STRIP ── -->
+<div class="contact-strip">
+  <div class="contact-item">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+    <a href="https://wa.me/918983990001" target="_blank">+91 89839 90001</a>
+  </div>
+  <div class="contact-item">
+    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    <a href="mailto:webcraftdigisol@gmail.com">webcraftdigisol@gmail.com</a>
+  </div>
+  <div class="contact-item">
+    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    Pune, Maharashtra, India
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .industry
